@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregătire Test Chimie Clasa a 7-a</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #e6f0ff; /* albastru deschis */
+            color: #333;
+            min-height: 100vh;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+        /* === PAGINA PRINCIPALĂ === */
+        #pagina-principala {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .pregatire {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #1a5fb4;
+        }
+        .creat-de {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 40px;
+            color: #2c3e50;
+        }
+        .btn-mare {
+            padding: 18px 40px;
+            margin: 15px;
+            font-size: 20px;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .btn-teorie { background: #4da6ff; color: white; }
+        .btn-test { background: #32CD32; color: white; }
+        .btn-mare:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.3); }
+
+        /* === TEORIE === */
+        #pagina-teorie { display: none; background: white; min-height: 100vh; padding: 30px 0; }
+        .header-teorie {
+            background: #1a5fb4;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 15px 15px 0 0;
+            margin-bottom: 20px;
+        }
+        .teorie-content {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            line-height: 1.8;
+            font-size: 17px;
+        }
+        .teorie-content h2 { 
+            color: #1a5fb4; 
+            margin: 30px 0 20px; 
+            font-size: 26px; 
+            border-bottom: 3px solid #4da6ff; 
+            padding-bottom: 10px;
+        }
+        .teorie-content h3 { color: #1a5fb4; margin: 25px 0 15px; font-size: 22px; }
+        .teorie-content h4 { color: #2c3e50; margin: 20px 0 10px; font-size: 19px; }
+        .teorie-content p { margin: 12px 0; }
+        .teorie-content ul { margin: 15px 0; padding-left: 30px; }
+        .teorie-content li { margin: 8px 0; }
+        .vas-laborator { 
+            background: #e3f2fd; 
+            border-left: 6px solid #2196F3; 
+            padding: 18px; 
+            margin: 25px 0; 
+            border-radius: 0 10px 10px 0;
+            font-size: 16px;
+        }
+        .regula-securitate { 
+            background: #fff3e0; 
+            border-left: 6px solid #FF9800; 
+            padding: 14px; 
+            margin: 12px 0; 
+            border-radius: 0 10px 10px 0;
+            font-weight: 500;
+            position: relative;
+            padding-left: 50px;
+        }
+        .regula-securitate::before {
+            content: "ATENȚIE!";
+            position: absolute;
+            left: 12px;
+            top: 12px;
+            font-weight: bold;
+            color: #FF5722;
+            font-size: 14px;
+        }
+        .notiune { 
+            background: #f0f4c3; 
+            border-left: 5px solid #8bc34a; 
+            padding: 12px; 
+            margin: 15px 0; 
+            border-radius: 0 8px 8px 0;
+        }
+        .fig { text-align: center; margin: 20px 0; font-style: italic; color: #555; }
+
+        /* === TEST === */
+        #pagina-test { display: none; background: #f5f7fa; min-height: 100vh; padding: 30px 0; }
+        .header-test {
+            background: linear-gradient(90deg, #228B22, #32CD32);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 15px 15px 0 0;
+            margin-bottom: 20px;
+        }
+        .intrebare {
+            background: white;
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        .intrebare:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
+        .intrebare h4 { color: #2c3e50; margin-bottom: 15px; font-size: 18px; }
+        .optiune { 
+            display: block; 
+            margin: 12px 0; 
+            padding: 12px 15px; 
+            background: #f8f9fa; 
+            border-radius: 8px; 
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .optiune:hover { background: #e3f2fd; }
+        .optiune input { margin-right: 12px; }
+        .input-text { 
+            width: 100%; 
+            padding: 12px; 
+            margin: 15px 0; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            font-size: 16px; 
+        }
+        .checkbox-group { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 10px; 
+            margin: 15px 0; 
+        }
+
+        /* === REZULTATE === */
+        #pagina-rezultate { display: none; text-align: center; padding: 50px 20px; min-height: 100vh; background: white; }
+        .scor-mare { font-size: 80px; font-weight: 700; margin: 30px 0; color: #1a5fb4; }
+        .nota-mare { font-size: 48px; font-weight: 700; margin: 20px 0; }
+        .lista-greseli { 
+            max-width: 900px; 
+            margin: 30px auto; 
+            text-align: left; 
+            background: #f8f9fa; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .gresala { 
+            margin: 20px 0; 
+            padding: 18px; 
+            background: #ffebee; 
+            border-left: 5px solid #e74c3c; 
+            border-radius: 8px;
+        }
+        .explicatie { 
+            margin-top: 12px; 
+            font-style: italic; 
+            color: #555; 
+            font-size: 15px; 
+            background: #f9f9f9; 
+            padding: 10px; 
+            border-radius: 6px;
+        }
+
+        /* === BUTOANE NAVIGARE === */
+        .nav-buttons {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+        .btn-nav {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-inapoi { background: #95a5a6; color: white; }
+        .btn-trimite { background: #e67e22; color: white; font-size: 18px; padding: 15px 40px; }
+
+        @media (max-width: 768px) {
+            .pregatire { font-size: 26px; }
+            .creat-de { font-size: 18px; }
+            .btn-mare { padding: 15px 30px; font-size: 18px; }
+            .intrebare { padding: 20px; }
+            .teorie-content { padding: 20px; }
+            .checkbox-group { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== PAGINA PRINCIPALĂ ==================== -->
+<div id="pagina-principala" class="container">
+    <div class="pregatire">PREGĂTIRE DE TEST LA CHIMIE</div>
+    <div class="creat-de">Creat de Robert Marian</div>
+    <button class="btn-mare btn-teorie" onclick="arataTeoria()">STUDIAZĂ TEORIA (CAPITOL COMPLET)</button>
+    <button class="btn-mare btn-test" onclick="arataTestul()">ÎNCEPE TESTUL (30 întrebări)</button>
+</div>
+
+<!-- ==================== TEORIA COMPLETĂ – DIN MANUALUL OFICIAL ==================== -->
+<div id="pagina-teorie" class="container">
+    <div class="header-teorie">
+        <h2>TEORIA COMPLETĂ – CAPITOLUL 1: CHIMIA – ȘTIINȚA DESPRE SUBSTANȚE</h2>
+        <p style="font-size: 16px; margin-top: 10px;">Bazat pe manualul oficial – Galina Dragalina & Nadejda Velișco</p>
+    </div>
+    <div class="teorie-content">
+
+        <h2>NORMELE DE LUCRU ÎN CABINETUL (LABORATORUL) DE CHIMIE</h2>
+        <div class="vas-laborator">
+            <h3>Reguli esențiale de securitate în laborator</h3>
+            <div class="regula-securitate">1. Înainte de a începe lucrul, îmbracă halatul, la indicația profesorului, poți folosi și alte mijloace de protecție (ochelari, mănuși speciale etc.).</div>
+            <div class="regula-securitate">2. Citește cu atenție eticheta vasului din care urmează să iei reactivul necesar.</div>
+            <div class="regula-securitate">3. Nu lăsa deschise recipientele cu reactivi. Nu schimba cu locul dopurile și pipetele pentru reactivi.</div>
+            <div class="regula-securitate">4. Ia doar cantitatea de reactiv indicată în instrucțiune. De obicei, pentru lucrarea cu cantități mici de substanță (până la 1 g pentru substanțele solide sau 1 ml pentru cele lichide).</div>
+            <div class="regula-securitate">5. Resturile de reactivi nu le pune înapoi în vasul din care le-ai luat, ci toarnă-le într-un balon special pentru resturi sau înapoiază-le laborantului.</div>
+            <div class="regula-securitate">6. Nu lua reactivii cu mâna, ci cu instrumentele speciale (linguriță, spatulă).</div>
+            <div class="regula-securitate">7. Se interzice categoric ca reactivii să fie gustați, deoarece majoritatea lor sunt otrăvitori.</div>
+            <div class="regula-securitate">8. Miroase substanțele se va face în felul următor: prin mișcări ușoare ale mâinii deasupra vasului, vaporii care se degajă vor fi îndreptați spre nas (fig. 1.2, pag. 23).</div>
+            <div class="regula-securitate">9. Pentru a încălzi la flacără eprubeta cu substanță, prinde eprubeta în clema pentru eprubete (numită impropriu cleștar), încălzește-o slab pe toată suprafața, apoi în partea necesară.</div>
+            <div class="regula-securitate">10. În timpul încălzirii, ține eprubeta ușor înclinată și nu îndrepta gura eprubetei spre tine, uneori, în timpul fierberii, sar stropi de lichid.</div>
+            <div class="regula-securitate">11. Dacă întâmplător s-a vărsat reactiv pe piele sau pe haine, anunță imediat profesorul (sau laborantul).</div>
+            <div class="regula-securitate">12. Obiectele fierbinți nu le pune pe masă, ci pe suport special.</div>
+            <div class="regula-securitate">13. Nu efectua nicio experiență în afara lucrării date.</div>
+            <p><strong>După terminarea experiențelor,</strong> vei face curaț la locul de lucru. Vasele le vei spăla cu apă, folosind, pentru curățare, perii speciale.</p>
+            <p><strong>Elevii sunt obligați să respecte aceste reguli, nerespectarea lor poate avea urmări grave: arsuri, răniri, intoxicații.</strong></p>
+        </div>
+
+        <h2>CAPITOLUL 1. CHIMIA – ȘTIINȚA DESPRE SUBSTANȚE</h2>
+        <p><strong>După studierea acestui capitol, vei fi capabil:</strong></p>
+        <ul>
+            <li>să definești noțiunile de atom, moleculă, substanță, element chimic, simbol chimic, formulă chimică, masă atomică și masă moleculară relativă;</li>
+            <li>să diferențiezi corpuri și substanțe, atomi și molecule, substanțe simple și compuse, metale și nemetale, substanțe organice și anorganice;</li>
+            <li>să utilizezi sistemul periodic pentru identificarea informației despre elementele chimice;</li>
+            <li>să descrii obiectul de studiu al chimiei, să cunoști regulile de tehnică a securității în laboratorul de chimie și utilajul de laborator, să afli proprietățile fizice și utilizarea unor substanțe, să definești modul în care acționează legea constanței compoziției;</li>
+            <li>să exemplifici cum contribuie chimia la creșterea calității vieții;</li>
+        </ul>
+
+        <h3>1.1 Substanța – formă de existență a materiei</h3>
+        <p>Din cele studiate până acum la fizică, biologie și geografie, am aflat că tot ce ne înconjoară este format din <strong>materie</strong>.</p>
+        <div class="notiune">
+            <p><strong>Materia reprezintă realitatea care există independent de noi și constituie izvorul tuturor transformărilor din natură.</strong></p>
+        </div>
+        <p><strong>Corpuri și substanțe.</strong> Întreaga lume care ne înconjoară este alcătuită dintr-o multitudine de obiecte sau corpuri fizice.</p>
+        <div class="notiune">
+            <p><strong>Corp fizic</strong> este orice obiect ce are <strong>masă, volum și alte caracteristici</strong>.</p>
+        </div>
+        <p>Astfel, cartea, pixul, lingura, paharul, calculatorul, automobilul s.a. sunt corpuri fizice (fig. 1.1).</p>
+        <div class="fig">
+            <p><em>Fig. 1.1 Diferite corpuri fizice</em></p>
+        </div>
+        <p>Prin ce se deosebesc toate aceste obiecte?</p>
+        <p>Corpurile date au forme, dimensiuni și culori diferite.</p>
+
+        <h3>Contribuția chimiei la sporirea calității vieții</h3>
+        <p>Chimia contribuie la creșterea calității vieții prin producerea medicamentelor, vitaminelor, materialelor plastice, îngrășămintelor chimice, combustibililor, materialelor de construcție etc.</p>
+        <p>Totuși, utilizarea incorectă a substanțelor chimice poate duce la poluare și efecte toxice asupra mediului și sănătății.</p>
+
+        <h2>LUCRAREA PRACTICĂ NR. 1. VASE ȘI INSTRUMENTE DE LABORATOR</h2>
+        <div class="vas-laborator">
+            <h3>Vase și instrumente esențiale</h3>
+            <ul>
+                <li><strong>Eprubetă</strong> – pentru reacții în cantități mici, încălzire</li>
+                <li><strong>Pahar de precipitații</strong> – pentru măsurarea volumului de lichide</li>
+                <li><strong>Balon Erlenmeyer</strong> – pentru reacții, titrări</li>
+                <li><strong>Cilindru gradat</strong> – pentru măsurarea precisă a volumului</li>
+                <li><strong>Pâlnie</strong> – pentru filtrare, turnare</li>
+                <li><strong>Clește pentru eprubete</strong> – pentru ținerea eprubetei la încălzire</li>
+                <li><strong>Spirtieră</strong> – sursă de căldură</li>
+            </ul>
+            <p><strong>Regulă importantă:</strong> După terminarea experienței, <strong>vasele se spală cu apă, folosind perii speciale</strong>.</p>
+        </div>
+
+        <h3>1.4 Proprietățile substanțelor</h3>
+        <ul>
+            <li><strong>Proprietăți fizice:</strong> culoare, miros, solubilitate, densitate, conductibilitate termică și electrică</li>
+            <li><strong>Proprietăți chimice:</strong> capacitatea de a reacționa cu alte substanțe</li>
+            <li><strong>Proprietăți fiziologice:</strong> acțiunea asupra organismului (toxicitate, inflamabilitate)</li>
+        </ul>
+
+        <h3>1.5 Metodele de cunoaștere în chimie</h3>
+        <p>Observare → Informare → Descriere → Măsurare → Meditație → Experiment</p>
+
+        <h3>1.6 Fenomene fizice și chimice</h3>
+        <ul>
+            <li><strong>Fenomene fizice:</strong> nu schimbă compoziția substanței (topire, evaporare, spargere)</li>
+            <li><strong>Fenomene chimice:</strong> schimbă compoziția (ardere, înnegrire, ruginire)</li>
+        </ul>
+        <p><strong>Semne ale reacțiilor chimice:</strong> degajare de gaz, formare de precipitat, schimbare de culoare, degajare/absorbție de căldură</p>
+
+        <h3>1.7 Atomul. Molecula</h3>
+        <ul>
+            <li><strong>Atom</strong> = cea mai mică particulă indivizibilă a substanței</li>
+            <li><strong>Moleculă</strong> = grup de atomi legați chimic</li>
+            <li><strong>Substanțe simple</strong> = formate dintr-un singur tip de atomi (ex: O₂, Fe)</li>
+            <li><strong>Substanțe compuse</strong> = formate din mai multe tipuri de atomi (ex: H₂O, CO₂)</li>
+        </ul>
+
+        <h3>1.8 Elementul chimic</h3>
+        <p><strong>Element chimic</strong> = totalitatea atomilor cu aceleași proprietăți chimice și fizice.</p>
+        <p>Astăzi sunt cunoscute <strong>118 elemente chimice</strong>.</p>
+
+        <h3>1.9 Simbolurile chimice</h3>
+        <p>Fiecare element are un <strong>simbol chimic</strong>: 1–2 litere, prima majusculă (ex: H, O, Fe, Au).</p>
+        <p>Simbolul reprezintă atât elementul, cât și <strong>un atom al acestuia</strong>.</p>
+
+        <h3>1.10 Masa atomică relativă</h3>
+        <p>Se raportează la <strong>1/12 din masa unui atom de carbon-12</strong>.</p>
+
+        <h3>1.11 Sistemul periodic al elementelor</h3>
+        <ul>
+            <li>7 <strong>perioade</strong> (rânduri orizontale)</li>
+            <li>18 <strong>grupe</strong> (coloane verticale)</li>
+            <li><strong>Metale</strong> (88%) – în partea stângă</li>
+            <li><strong>Nemetale</strong> – în partea dreaptă</li>
+        </ul>
+
+        <h3>1.12 Metale și nemetale</h3>
+        <ul>
+            <li><strong>Metale:</strong> solide, lucioase, bune conductoare de căldură și electricitate, maleabile</li>
+            <li><strong>Nemetale:</strong> gaze, lichide sau solide fragile, proaste conductoare</li>
+        </ul>
+
+        <h3>1.13 Formula chimică. Masa moleculară relativă</h3>
+        <p><strong>Formula chimică</strong> arată compoziția moleculei (ex: H₂O = 2 atomi H + 1 atom O).</p>
+        <p><strong>Masa moleculară relativă</strong> = suma maselor atomice relative ale atomilor din moleculă.</p>
+        <p><strong>Legea constanței compoziției:</strong> orice substanță chimică are o compoziție constantă.</p>
+
+    </div>
+</div>
+
+<!-- ==================== TESTUL – 30 ÎNTREBĂRI MIXTE ==================== -->
+<div id="pagina-test" class="container">
+    <div class="header-test">
+        <h2>TEST CHIMIE – 30 ÎNTREBĂRI (GRILĂ, TEXT, MULTIPLU)</h2>
+    </div>
+    <form id="testForm">
+        <!-- Întrebările vor fi generate dinamic -->
+    </form>
+</div>
+
+<!-- ==================== REZULTATE ==================== -->
+<div id="pagina-rezultate" class="container">
+    <h2 class="scor-mare" id="scorFinal">0/30</h2>
+    <h2 class="nota-mare" id="notaFinala">10</h2>
+    <div id="listaGreseli" class="lista-greseli" style="display:none;"></div>
+</div>
+
+<!-- ==================== BUTOANE NAVIGARE ==================== -->
+<div class="nav-buttons" id="butoaneNav">
+    <button class="btn-nav btn-inapoi" onclick="inapoi()" id="btnInapoi" style="display:none;">ÎNAPOI</button>
+    <button class="btn-nav btn-trimite" onclick="verificaTest()" id="btnTrimite" style="display:none;">TRIMITE RĂSPUNSURILE</button>
+</div>
+
+<script>
+    // === 30 ÎNTREBĂRI REALE DIN MANUAL + EXPLICAȚII ===
+    const intrebari = [
+        { tip: 'radio', intrebare: 'Ce reprezintă materia?', optiuni: ['a) Realitatea care există independent de conștiința noastră', 'b) Doar corpurile solide', 'c) Numai ființele vii', 'd) Numai obiectele vizibile'], corect: 'a', explicatie: 'Materia este definită ca realitatea care există independent de conștiință (pag. 7).' },
+        { tip: 'text', intrebare: 'Scrie numele unui vas de laborator folosit pentru încălzire:', corect: ['eprubeta', 'eprubetă'], explicatie: 'Eprubeta este vasul standard pentru încălzire în cantități mici (pag. 22).' },
+        { tip: 'multi', intrebare: 'Care sunt proprietăți fizice? (Alege toate corecte)', optiuni: ['a) Culoarea', 'b) Capacitatea de a arde', 'c) Mirosul', 'd) Toxicitatea'], corect: ['a', 'c'], explicatie: 'Culoarea și mirosul sunt proprietăți fizice. Arderea și toxicitatea sunt chimice/fiziologice (pag. 22).' },
+        { tip: 'radio', intrebare: 'Ce este un fenomen chimic?', optiuni: ['a) Arderea lemnului', 'b) Topirea gheții', 'c) Evaporarea apei', 'd) Spargerea sticlei'], corect: 'a', explicatie: 'Arderea schimbă compoziția → fenomen chimic (pag. 28).' },
+        { tip: 'text', intrebare: 'Cum se numește cea mai mică particulă indivizibilă a substanței?', corect: ['atom'], explicatie: 'Atomul este cea mai mică particulă indivizibilă (pag. 31).' },
+        { tip: 'multi', intrebare: 'Care sunt semne ale reacției chimice? (Alege toate)', optiuni: ['a) Degajare de gaz', 'b) Schimbare de formă', 'c) Formare de precipitat', 'd) Schimbare de culoare'], corect: ['a', 'c', 'd'], explicatie: 'Degajare de gaz, precipitat, schimbare de culoare – semne clasice (pag. 28).' },
+        { tip: 'radio', intrebare: 'Ce este un corp fizic?', optiuni: ['a) Orice obiect cu masă și volum', 'b) Doar substanțele pure', 'c) Un atom', 'd) O moleculă'], corect: 'a', explicatie: 'Corp fizic = orice obiect cu masă, volum și alte caracteristici (pag. 7).' },
+        { tip: 'text', intrebare: 'Cum se miros substanțele în laborator?', corect: ['prin mișcări ușoare ale mâinii', 'cu mișcări ușoare', 'mișcări ușoare'], explicatie: 'Se miros prin mișcări ușoare ale mâinii deasupra vasului (regula 8, pag. 6).' },
+        { tip: 'multi', intrebare: 'Ce reguli de securitate trebuie respectate? (Alege 3)', optiuni: ['a) Îmbracă halatul', 'b) Gustă reactivii', 'c) Nu lăsa recipientele deschise', 'd) Pune resturile înapoi'], corect: ['a', 'c'], explicatie: 'Halatul și recipientele închise sunt obligatorii. Gustatul și returnarea resturilor sunt interzise (pag. 6).' },
+        { tip: 'radio', intrebare: 'Ce este elementul chimic?', optiuni: ['a) Totalitatea atomilor cu aceleași proprietăți', 'b) O moleculă', 'c) Un corp fizic', 'd) Un vas'], corect: 'a', explicatie: 'Element chimic = toți atomii cu aceleași proprietăți (pag. 35).' },
+        { tip: 'radio', intrebare: 'Câte perioade are sistemul periodic?', optiuni: ['a) 7', 'b) 10', 'c) 18', 'd) 118'], corect: 'a', explicatie: 'Sistemul periodic are 7 perioade (pag. 43).' },
+        { tip: 'text', intrebare: 'Care este simbolul chimic al aurului?', corect: ['au'], explicatie: 'Au – din latină "Aurum" (pag. 38).' },
+        { tip: 'multi', intrebare: 'Care sunt caracteristici ale metalelor?', optiuni: ['a) Lucioase', 'b) Fragile', 'c) Bune conductoare', 'd) Gaze'], corect: ['a', 'c'], explicatie: 'Metalele sunt lucioase, maleabile, bune conductoare (pag. 49).' },
+        { tip: 'radio', intrebare: 'Ce reprezintă formula chimică H₂O?', optiuni: ['a) 2 atomi H + 1 atom O', 'b) 1 atom H + 2 atomi O', 'c) Doar apă', 'd) Un gaz'], corect: 'a', explicatie: 'H₂O = 2 atomi de hidrogen și 1 atom de oxigen (pag. 54).' },
+        { tip: 'text', intrebare: 'Cum se calculează masa moleculară relativă?', corect: ['suma maselor atomice', 'suma'], explicatie: 'Se adună masele atomice relative ale tuturor atomilor (pag. 54).' },
+        { tip: 'multi', intrebare: 'Ce se face cu resturile de reactivi?', optiuni: ['a) Se aruncă în vas special', 'b) Se pun înapoi', 'c) Se gustă', 'd) Se lasă pe masă'], corect: ['a'], explicatie: 'Resturile se aruncă în balonul special (regula 5, pag. 6).' },
+        { tip: 'radio', intrebare: 'Ce este clema pentru eprubete?', optiuni: ['a) Pentru ținerea eprubetei la încălzire', 'b) Pentru gust', 'c) Pentru miros', 'd) Nu are rol'], corect: 'a', explicatie: 'Clema ține eprubeta în siguranță la încălzire (pag. 22).' },
+        { tip: 'text', intrebare: 'Numește o sursă de căldură în laborator:', corect: ['spirtiară', 'spirtieră'], explicatie: 'Spirtiera este sursa principală de căldură (pag. 22).' },
+        { tip: 'multi', intrebare: 'Ce proprietăți au nemetalele?', optiuni: ['a) Proaste conductoare', 'b) Maleabile', 'c) Fragile', 'd) Lucioase'], corect: ['a', 'c'], explicatie: 'Nemetalele sunt proaste conductoare și fragile (pag. 49).' },
+        { tip: 'radio', intrebare: 'Legea constanței compoziției spune că:', optiuni: ['a) Substanțele au compoziție constantă', 'b) Se schimbă compoziția', 'c) Doar pentru simple', 'd) Nimic'], corect: 'a', explicatie: 'Orice substanță chimică are compoziție constantă (pag. 54).' },
+        { tip: 'text', intrebare: 'Ce este un balon Erlenmeyer?', corect: ['pentru reacții', 'pentru titrare', 'erlenmeyer'], explicatie: 'Balonul Erlenmeyer este folosit pentru reacții și titrări (pag. 22).' },
+        { tip: 'multi', intrebare: 'Ce se interzice în laborator?', optiuni: ['a) Gustatul reactivilor', 'b) Mirosul direct', 'c) Încălzirea cu clema', 'd) Schimbarea dopurilor'], corect: ['a', 'b', 'd'], explicatie: 'Gustatul, mirosul direct și schimbarea dopurilor sunt interzise (pag. 6).' },
+        { tip: 'radio', intrebare: 'Câte elemente chimice sunt cunoscute?', optiuni: ['a) 118', 'b) 100', 'c) 92', 'd) 150'], corect: 'a', explicatie: 'Sunt cunoscute 118 elemente chimice (pag. 35).' },
+        { tip: 'text', intrebare: 'Ce este un fenomen fizic?', corect: ['topire', 'evaporare', 'spargere'], explicatie: 'Topirea, evaporarea, spargerea nu schimbă compoziția (pag. 28).' },
+        { tip: 'multi', intrebare: 'Ce vase se spală după experiență?', optiuni: ['a) Cu apă și perii speciale', 'b) Cu mâna goală', 'c) Nu se spală', 'd) Cu substanțe chimice'], corect: ['a'], explicatie: 'Vasele se spală cu apă și perii speciale (pag. 22).' },
+        { tip: 'radio', intrebare: 'Ce este spirtiera?', optiuni: ['a) Sursă de căldură', 'b) Vas de măsurare', 'c) Instrument de miros', 'd) Pâlnie'], corect: 'a', explicatie: 'Spirtiera este sursa de căldură (pag. 22).' },
+        { tip: 'text', intrebare: 'Ce rol are pâlnie?', corect: ['filtrare', 'turnare'], explicatie: 'Pâlnie pentru filtrare și turnare lichide (pag. 22).' },
+        { tip: 'multi', intrebare: 'Ce proprietăți fiziologice au substanțele?', optiuni: ['a) Toxicitate', 'b) Culoare', 'c) Inflamabilitate', 'd) Miros'], corect: ['a', 'c'], explicatie: 'Toxicitate și inflamabilitate = acțiune asupra organismului (pag. 22).' },
+        { tip: 'radio', intrebare: 'Diversitatea substanțelor se datorează:', optiuni: ['a) Combinării atomilor', 'b) Culorilor', 'c) Vaselor', 'd) Nimic'], corect: 'a', explicatie: 'Diversitatea vine din combinarea diferită a atomilor (pag. 31).' },
+        { tip: 'text', intrebare: 'Ce este masa atomică relativă raportată la?', corect: ['carbon-12', '1/12 carbon', 'carbon 12'], explicatie: 'Se raportează la 1/12 din masa unui atom de carbon-12 (pag. 41).' }
+    ];
+
+    // GENERARE DINAMICĂ
+    const testForm = document.getElementById('testForm');
+    intrebari.forEach((q, i) => {
+        const div = document.createElement('div');
+        div.className = 'intrebare';
+        div.innerHTML = `<h4>${i + 1}. ${q.intrebare}</h4>`;
+
+        if (q.tip === 'radio' || q.tip === 'multi') {
+            if (q.tip === 'multi') div.innerHTML += '<div class="checkbox-group">';
+            q.optiuni.forEach(opt => {
+                const label = `<label class="optiune"><input type="${q.tip === 'multi' ? 'checkbox' : 'radio'}" name="q${i}" value="${opt[0]}"> ${opt}</label>`;
+                div.innerHTML += label;
+            });
+            if (q.tip === 'multi') div.innerHTML += '</div>';
+        } else if (q.tip === 'text') {
+            div.innerHTML += `<input type="text" class="input-text" name="q${i}" placeholder="Răspunsul tău...">`;
+        }
+        testForm.appendChild(div);
+    });
+
+    function arataTeoria() {
+        document.getElementById('pagina-principala').style.display = 'none';
+        document.getElementById('pagina-teorie').style.display = 'block';
+        document.getElementById('pagina-test').style.display = 'none';
+        document.getElementById('pagina-rezultate').style.display = 'none';
+        document.getElementById('btnInapoi').style.display = 'block';
+        document.getElementById('btnTrimite').style.display = 'none';
+    }
+
+    function arataTestul() {
+        document.getElementById('pagina-principala').style.display = 'none';
+        document.getElementById('pagina-teorie').style.display = 'none';
+        document.getElementById('pagina-test').style.display = 'block';
+        document.getElementById('pagina-rezultate').style.display = 'none';
+        document.getElementById('btnInapoi').style.display = 'block';
+        document.getElementById('btnTrimite').style.display = 'block';
+    }
+
+    function inapoi() {
+        document.getElementById('pagina-principala').style.display = 'flex';
+        document.getElementById('pagina-teorie').style.display = 'none';
+        document.getElementById('pagina-test').style.display = 'none';
+        document.getElementById('pagina-rezultate').style.display = 'none';
+        document.getElementById('btnInapoi').style.display = 'none';
+        document.getElementById('btnTrimite').style.display = 'none';
+    }
+
+    function verificaTest() {
+        let scor = 0;
+        const greseli = [];
+
+        intrebari.forEach((q, i) => {
+            let raspuns = null;
+            let corect = false;
+
+            if (q.tip === 'radio') {
+                const sel = document.querySelector(`input[name="q${i}"]:checked`);
+                raspuns = sel ? sel.value : '—';
+                corect = raspuns === q.corect;
+            } else if (q.tip === 'text') {
+                const input = document.querySelector(`input[name="q${i}"]`);
+                const val = input ? input.value.trim().toLowerCase() : '';
+                raspuns = val || '—';
+                corect = q.corect.some(c => c.toLowerCase() === val);
+            } else if (q.tip === 'multi') {
+                const checked = Array.from(document.querySelectorAll(`input[name="q${i}"]:checked`)).map(c => c.value);
+                raspuns = checked.length ? checked.sort().join(', ') : '—';
+                const corectSortat = q.corect.sort().join(', ');
+                corect = raspuns === corectSortat;
+            }
+
+            if (corect) {
+                scor++;
+            } else {
+                greseli.push({
+                    intrebare: q.intrebare,
+                    raspuns: raspuns,
+                    corect: Array.isArray(q.corect) ? q.corect.join(', ') : q.corect,
+                    explicatie: q.explicatie
+                });
+            }
+        });
+
+        document.getElementById('pagina-test').style.display = 'none';
+        document.getElementById('pagina-rezultate').style.display = 'block';
+        document.getElementById('btnTrimite').style.display = 'none';
+        document.getElementById('btnInapoi').style.display = 'block';
+
+        document.getElementById('scorFinal').textContent = `${scor}/30`;
+
+        const procent = scor / 30;
+        let nota = 1;
+        if (procent >= 0.95) nota = 10;
+        else if (procent >= 0.90) nota = 9;
+        else if (procent >= 0.80) nota = 8;
+        else if (procent >= 0.70) nota = 7;
+        else if (procent >= 0.60) nota = 6;
+        else if (procent >= 0.50) nota = 5;
+        else if (procent >= 0.40) nota = 4;
+        else if (procent >= 0.30) nota = 3;
+        else if (procent >= 0.20) nota = 2;
+        else nota = 1;
+
+        document.getElementById('notaFinala').textContent = nota;
+        document.getElementById('notaFinala').style.color = nota >= 6 ? '#32CD32' : '#e74c3c';
+
+        if (greseli.length > 0) {
+            document.getElementById('listaGreseli').style.display = 'block';
+            const html = greseli.map(g => `
+                <div class="gresala">
+                    <strong>Întrebare:</strong> ${g.intrebare}<br>
+                    <strong>Răspunsul tău:</strong> <span style="color:#e74c3c;">${g.raspuns}</span><br>
+                    <strong>Răspuns corect:</strong> <span style="color:#32CD32;"><strong>${g.corect}</strong></span>
+                    <div class="explicatie"><strong>De ce e corect?</strong> ${g.explicatie}</div>
+                </div>
+            `).join('');
+            document.getElementById('listaGreseli').innerHTML = '<h3>Întrebări greșite:</h3>' + html;
+        }
+    }
+</script>
+
+</body>
+</html>
